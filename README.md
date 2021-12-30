@@ -6,7 +6,48 @@ Due to the nature of reinforcement learning, simulators are often used to train 
 
 The purpose of this project is to find a good configuration for the PPO Algorithm while evaluating its performance in the driving simulator CARLA. The main goal of the evaluation is to improve the speed of training while keeping a good generalisation performance.
 
+## Requirements
 
+System requirements:
+
+- Ubuntu 18.04
+- 100 GB disk space
+- An adequate GPU (with at least 4 GB VRAM)
+- For further instructions on the prerequisites follow the guide described in the CARLA documentation. https://carla.readthedocs.io/en/0.9.11/build_linux/
+
+Software requirements:
+
+- Python 3.6
+- CARLA 0.95 or above
+- TensorFlow for GPU
+- OpenAI gym
+- OpenCV for Python
+
+## Running
+
+Within the code folder there are already 3 pretrained PPO agents: `PPO_Junior` , ` PPO_Junior-sun`, `PPO_Junior_semantic`, they are located in the `models` folder. The best performing model is the ` PPO_Junior_semantic` model.
+
+There are two modes of operation training and running.
+
+**Training:**
+
+To train a new model, from the root directory you need to run the following command
+
+```shell
+python3 train.py --model_name name_of_your_model -start_carla
+```
+
+this will create a new folder inside the `models` folder, which will store the model data
+
+**Running:**
+
+Once everything is installed you can run the models described before by running the following command.
+
+```shell
+python3 run_eval.py --model_name PPO_Junior_semantic -start_carla
+```
+
+This will run an evaluation of the model and you will be able to test the running model.
 
 ## Implementation
 
@@ -47,4 +88,3 @@ When computing the clipped loss <img src="https://render.githubusercontent.com/r
 <img src="https://render.githubusercontent.com/render/math?math=\log%20\pi_{\theta}\left(a_{t}%20\mid%20s_{t}\right)-\log%20\pi_{\theta_{\text%20{old%20}}}\left(a_{t}%20\mid%20s_{t}\right)=\frac{\pi_{\theta}\left(a_{t}%20\mid%20s_{t}\right)}{\pi_{\theta_{\text%20{old%20}}}\left(a_{t}%20\mid%20s_{t}\right)}=r_{t}(\theta)#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}\log%20\pi_{\theta}\left(a_{t}%20\mid%20s_{t}\right)-\log%20\pi_{\theta_{\text%20{old%20}}}\left(a_{t}%20\mid%20s_{t}\right)=\frac{\pi_{\theta}\left(a_{t}%20\mid%20s_{t}\right)}{\pi_{\theta_{\text%20{old%20}}}\left(a_{t}%20\mid%20s_{t}\right)}=r_{t}(\theta)#gh-dark-mode-only">
 
 Therefore once the combined loss is computed we optimise it with the Adam optimiser
-
